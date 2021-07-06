@@ -7,5 +7,5 @@ public class MyList<T> {
     private ListElement<T> start;
     private ListElement<T> end;
 
-    
+
 }
