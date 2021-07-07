@@ -26,5 +26,7 @@ public class Program {
         listOfLists.insertStart(list1);
 
         System.out.println(listOfLists.toString());
+        list1.reverse();
+        System.out.println(list1.toString());
     }
 }

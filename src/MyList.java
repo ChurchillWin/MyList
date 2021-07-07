@@ -1,12 +1,7 @@
-import java.lang.reflect.Array;
-import java.net.Proxy;
-import java.util.*;
-
 public class MyList<T> {
     private int size;
-    private ListElement<T> start = new ListElement<>(null);
-    private ListElement<T> end = new ListElement<>(null);
-
+    private final ListElement<T> start = new ListElement<>(null);
+    private final ListElement<T> end = new ListElement<>(null);
     MyList() {
         size = 0;
         this.start.setPrev(null);
@@ -14,28 +9,23 @@ public class MyList<T> {
         start.setNext(start);
         end.setPrev(start);
     }
-
     @Override
     public String toString() {
         ListElement<T> temp = start;
-        String output = "";
+        StringBuilder output = new StringBuilder();
         for (int i = 0; i < size; i++) {
             temp = temp.getNext();
-            output += temp.getValue().toString() + " ";
+            output.append(temp.getValue().toString()).append(" ");
         }
-        return output;
+        return output.toString();
     }
-
     @Override
     public boolean equals(Object obj) {
         if (obj.getClass() == this.getClass()) {
             MyList<T> temp = (MyList<T>)obj;
-            if(temp.getSize() == this.size)
-                return true;
-            else return false;
+            return temp.getSize() == this.size;
         }else return false;
     }
-
     public void insertEnd(T value) {
         ListElement<T> element = new ListElement<>(value);//element to insert
         ListElement<T> mem = new ListElement<>(null);//memory
@@ -79,6 +69,15 @@ public class MyList<T> {
         start.setNext(end);
         end.setPrev(start);
     }
+    public void reverse() {
+        ListElement<T> temp = start.getNext();
+        for (int i = 0; i <= size; i++) {
+            temp.setNext(temp.getPrev());
+            temp.setPrev(temp.getNext());
+            temp = temp.getNext();
+        }
+    }
+    //Iteration from the closest side of the list
     public T get(int elementIndex) {
         if (elementIndex > size) {throw new IndexOutOfBoundsException("Index: " + elementIndex + " is not in list.size: " + size);}
         ListElement<T> temp;
@@ -104,7 +103,7 @@ public class MyList<T> {
     }
 
     private class ListElement<T> {
-        private T value;
+        private final T value;
         private ListElement<T> next;
         private ListElement<T> prev;
 
@@ -113,8 +112,6 @@ public class MyList<T> {
             next = null;
             prev = null;
         }
-
-
         public ListElement<T> getNext() {
             return next;
         }
