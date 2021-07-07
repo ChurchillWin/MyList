@@ -15,6 +15,27 @@ public class MyList<T> {
         end.setPrev(start);
     }
 
+    @Override
+    public String toString() {
+        ListElement<T> temp = start;
+        String output = "";
+        for (int i = 0; i < size; i++) {
+            temp = temp.getNext();
+            output += temp.getValue().toString() + " ";
+        }
+        return output;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj.getClass() == this.getClass()) {
+            MyList<T> temp = (MyList<T>)obj;
+            if(temp.getSize() == this.size)
+                return true;
+            else return false;
+        }else return false;
+    }
+
     public void insertEnd(T value) {
         ListElement<T> element = new ListElement<>(value);//element to insert
         ListElement<T> mem = new ListElement<>(null);//memory
@@ -50,6 +71,9 @@ public class MyList<T> {
     }
     public T getFirst() {
         return start.getNext().getValue();
+    }
+    public int getSize() {
+        return size;
     }
     public void clear() {
         start.setNext(end);
@@ -89,11 +113,7 @@ public class MyList<T> {
             next = null;
             prev = null;
         }
-        protected ListElement() {
-            this.value = null;
-            next = null;
-            prev = null;
-        }
+
 
         public ListElement<T> getNext() {
             return next;
